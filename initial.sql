@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.27, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.20, for Linux (x86_64)
 --
 -- Host: localhost    Database: ProgEdu
 -- ------------------------------------------------------
--- Server version	5.7.27
+-- Server version	5.7.20
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -41,8 +41,17 @@ CREATE TABLE `Assignment` (
   PRIMARY KEY (`id`),
   KEY `A_type_idx` (`type`),
   CONSTRAINT `A_type` FOREIGN KEY (`type`) REFERENCES `Assignment_Type` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Assignment`
+--
+
+LOCK TABLES `Assignment` WRITE;
+/*!40000 ALTER TABLE `Assignment` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Assignment` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `Assignment_Type`
@@ -57,6 +66,16 @@ CREATE TABLE `Assignment_Type` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Assignment_Type`
+--
+
+LOCK TABLES `Assignment_Type` WRITE;
+/*!40000 ALTER TABLE `Assignment_Type` DISABLE KEYS */;
+INSERT INTO `Assignment_Type` VALUES (1,'javac'),(2,'maven'),(3,'web'),(4,'android');
+/*!40000 ALTER TABLE `Assignment_Type` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `Assignment_User`
@@ -74,8 +93,17 @@ CREATE TABLE `Assignment_User` (
   KEY `A_U_uid_idx` (`uId`),
   CONSTRAINT `A_U_aid` FOREIGN KEY (`aId`) REFERENCES `Assignment` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `A_U_uid` FOREIGN KEY (`uId`) REFERENCES `User` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Assignment_User`
+--
+
+LOCK TABLES `Assignment_User` WRITE;
+/*!40000 ALTER TABLE `Assignment_User` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Assignment_User` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `Commit_Record`
@@ -95,8 +123,17 @@ CREATE TABLE `Commit_Record` (
   KEY `C_S_id_idx` (`status`),
   CONSTRAINT `C_R_auid` FOREIGN KEY (`auId`) REFERENCES `Assignment_User` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `C_R_status` FOREIGN KEY (`status`) REFERENCES `Commit_Status` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Commit_Record`
+--
+
+LOCK TABLES `Commit_Record` WRITE;
+/*!40000 ALTER TABLE `Commit_Record` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Commit_Record` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `Commit_Status`
@@ -109,8 +146,18 @@ CREATE TABLE `Commit_Status` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Commit_Status`
+--
+
+LOCK TABLES `Commit_Status` WRITE;
+/*!40000 ALTER TABLE `Commit_Status` DISABLE KEYS */;
+INSERT INTO `Commit_Status` VALUES (1,'bs'),(2,'csf'),(3,'cpf'),(4,'ini'),(5,'utf'),(6, 'whf'),(7, 'wsf'),(8, 'wef'),(9, 'uitf'), (10, 'alf');
+/*!40000 ALTER TABLE `Commit_Status` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `Group`
@@ -127,6 +174,15 @@ CREATE TABLE `Group` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Group`
+--
+
+LOCK TABLES `Group` WRITE;
+/*!40000 ALTER TABLE `Group` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Group` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `Group_User`
@@ -148,6 +204,15 @@ CREATE TABLE `Group_User` (
   CONSTRAINT `G_U_uid` FOREIGN KEY (`uId`) REFERENCES `User` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Group_User`
+--
+
+LOCK TABLES `Group_User` WRITE;
+/*!40000 ALTER TABLE `Group_User` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Group_User` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `Project`
@@ -173,6 +238,15 @@ CREATE TABLE `Project` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `Project`
+--
+
+LOCK TABLES `Project` WRITE;
+/*!40000 ALTER TABLE `Project` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Project` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `Project_Commit_Record`
 --
 
@@ -195,6 +269,15 @@ CREATE TABLE `Project_Commit_Record` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `Project_Commit_Record`
+--
+
+LOCK TABLES `Project_Commit_Record` WRITE;
+/*!40000 ALTER TABLE `Project_Commit_Record` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Project_Commit_Record` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `Project_Group`
 --
 
@@ -214,6 +297,15 @@ CREATE TABLE `Project_Group` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `Project_Group`
+--
+
+LOCK TABLES `Project_Group` WRITE;
+/*!40000 ALTER TABLE `Project_Group` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Project_Group` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `Project_Screenshot_Record`
 --
 
@@ -231,6 +323,15 @@ CREATE TABLE `Project_Screenshot_Record` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `Project_Screenshot_Record`
+--
+
+LOCK TABLES `Project_Screenshot_Record` WRITE;
+/*!40000 ALTER TABLE `Project_Screenshot_Record` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Project_Screenshot_Record` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `Role`
 --
 
@@ -243,6 +344,16 @@ CREATE TABLE `Role` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Role`
+--
+
+LOCK TABLES `Role` WRITE;
+/*!40000 ALTER TABLE `Role` DISABLE KEYS */;
+INSERT INTO `Role` VALUES (1,'teacher'),(2,'student');
+/*!40000 ALTER TABLE `Role` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `Role_User`
@@ -260,8 +371,17 @@ CREATE TABLE `Role_User` (
   KEY `R_U_rid_idx` (`rId`),
   CONSTRAINT `R_U_rid` FOREIGN KEY (`rId`) REFERENCES `Role` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `R_U_uid` FOREIGN KEY (`uId`) REFERENCES `User` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Role_User`
+--
+
+LOCK TABLES `Role_User` WRITE;
+/*!40000 ALTER TABLE `Role_User` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Role_User` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `Screenshot_Record`
@@ -281,6 +401,15 @@ CREATE TABLE `Screenshot_Record` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `Screenshot_Record`
+--
+
+LOCK TABLES `Screenshot_Record` WRITE;
+/*!40000 ALTER TABLE `Screenshot_Record` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Screenshot_Record` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `User`
 --
 
@@ -297,8 +426,17 @@ CREATE TABLE `User` (
   `gitLabToken` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `display` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `User`
+--
+
+LOCK TABLES `User` WRITE;
+/*!40000 ALTER TABLE `User` DISABLE KEYS */;
+/*!40000 ALTER TABLE `User` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -309,4 +447,4 @@ CREATE TABLE `User` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-09-13  7:49:33
+-- Dump completed on 2019-08-23  6:00:14
