@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.20, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.27, for Linux (x86_64)
 --
 -- Host: localhost    Database: ProgEdu
 -- ------------------------------------------------------
--- Server version	5.7.20
+-- Server version	5.7.27
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -41,7 +41,7 @@ CREATE TABLE `Assignment` (
   PRIMARY KEY (`id`),
   KEY `A_type_idx` (`type`),
   CONSTRAINT `A_type` FOREIGN KEY (`type`) REFERENCES `Assignment_Type` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -93,7 +93,7 @@ CREATE TABLE `Assignment_User` (
   KEY `A_U_uid_idx` (`uId`),
   CONSTRAINT `A_U_aid` FOREIGN KEY (`aId`) REFERENCES `Assignment` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `A_U_uid` FOREIGN KEY (`uId`) REFERENCES `User` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -123,7 +123,7 @@ CREATE TABLE `Commit_Record` (
   KEY `C_S_id_idx` (`status`),
   CONSTRAINT `C_R_auid` FOREIGN KEY (`auId`) REFERENCES `Assignment_User` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `C_R_status` FOREIGN KEY (`status`) REFERENCES `Commit_Status` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -146,7 +146,7 @@ CREATE TABLE `Commit_Status` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -155,7 +155,7 @@ CREATE TABLE `Commit_Status` (
 
 LOCK TABLES `Commit_Status` WRITE;
 /*!40000 ALTER TABLE `Commit_Status` DISABLE KEYS */;
-INSERT INTO `Commit_Status` VALUES (1,'bs'),(2,'csf'),(3,'cpf'),(4,'ini'),(5,'utf'),(6, 'whf'),(7, 'wsf'),(8, 'wef'),(9, 'uitf'), (10, 'alf');
+INSERT INTO `Commit_Status` VALUES (1,'bs'),(2,'csf'),(3,'cpf'),(4,'ini'),(5,'utf'),(6,'whf'),(7,'wsf'),(8,'wef'),(9,'uitf');
 /*!40000 ALTER TABLE `Commit_Status` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -212,6 +212,37 @@ CREATE TABLE `Group_User` (
 LOCK TABLES `Group_User` WRITE;
 /*!40000 ALTER TABLE `Group_User` DISABLE KEYS */;
 /*!40000 ALTER TABLE `Group_User` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Pair_Matching`
+--
+
+DROP TABLE IF EXISTS `Pair_Matching`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Pair_Matching` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `auId` int(11) DEFAULT NULL,
+  `reviewId` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `P_M_reviewId_idx` (`reviewId`),
+  KEY `P_M_auId_idx` (`auId`),
+  KEY `P_M_status_idx` (`status`),
+  CONSTRAINT `P_M_auId` FOREIGN KEY (`auId`) REFERENCES `Assignment_User` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `P_M_reviewId` FOREIGN KEY (`reviewId`) REFERENCES `User` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `P_M_status` FOREIGN KEY (`status`) REFERENCES `Review_Status` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=385 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Pair_Matching`
+--
+
+LOCK TABLES `Pair_Matching` WRITE;
+/*!40000 ALTER TABLE `Pair_Matching` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Pair_Matching` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -332,6 +363,175 @@ LOCK TABLES `Project_Screenshot_Record` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `Review_Category`
+--
+
+DROP TABLE IF EXISTS `Review_Category`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Review_Category` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) CHARACTER SET utf8 DEFAULT NULL,
+  `metrics` varchar(3000) CHARACTER SET utf8 DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Review_Category`
+--
+
+LOCK TABLES `Review_Category` WRITE;
+/*!40000 ALTER TABLE `Review_Category` DISABLE KEYS */;
+INSERT INTO `Review_Category` VALUES (1,'功能性Functionality','身為審查人員通常需要考量到極端案例, 尋找併發性問題並且確保功能沒有錯誤, 試著像客戶方使用及思考'),(2,'可讀性Readability','包括函數的命名是否淺顯易懂, 程式碼是否整齊讓人容易閱讀, 讓審查人員能有清晰的思緒去審查程式碼'),(3,'註解Comments','註解是為了解釋為什麼某些程式碼存在是有用的, 因此有兩個要件:1. 作者能夠完整表達意思 2. 讀者能夠清楚理解作者的意思'),(4,'複雜度Complexity','\"太複雜\"通常表示閱讀人員很難立即理解, 也表示開發人員在飲用或修改此程式碼時可能引入錯誤, 或者是過度設計導致, 造成效率降低');
+/*!40000 ALTER TABLE `Review_Category` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Review_Metrics`
+--
+
+DROP TABLE IF EXISTS `Review_Metrics`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Review_Metrics` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `category` int(11) DEFAULT NULL,
+  `mode` int(11) DEFAULT NULL,
+  `metrics` varchar(3000) COLLATE utf8_bin DEFAULT NULL,
+  `description` varchar(3000) COLLATE utf8_bin DEFAULT NULL,
+  `link` varchar(3000) COLLATE utf8_bin DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `R_M_category_idx` (`category`),
+  KEY `R_M_mode_idx` (`mode`),
+  CONSTRAINT `R_M_category` FOREIGN KEY (`category`) REFERENCES `Review_Category` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `R_M_mode` FOREIGN KEY (`mode`) REFERENCES `Score_Mode` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Review_Metrics`
+--
+
+LOCK TABLES `Review_Metrics` WRITE;
+/*!40000 ALTER TABLE `Review_Metrics` DISABLE KEYS */;
+INSERT INTO `Review_Metrics` VALUES (1,1,1,'符合題目要求','這次的提交是否達到開發者的預期目的?也就是學生是否達到老師題目要求','https://www.w3schools.com/'),(2,2,1,'排版是否整齊','不規則的排版會造成審查人員在閱讀上會有困難，因此會花更多的時間去理解造成效率低','https://github.com/twitter-archive/commons/blob/master/src/java/com/twitter/common/styleguide.md'),(3,2,1,'符合變數名稱格式','審查人員需要找到一個對應的、真實的實質資料時，好的命名能減少審查人員的理解時間並提高效率','https://github.com/twitter-archive/commons/blob/master/src/java/com/twitter/common/styleguide.md'),(4,3,1,'函式標示註解','註解是\"解釋函式為什麼有時是有用的\"，而不是解釋函式裡面在做什麼，註解像是決策背後的原因','https://github.com/twitter-archive/commons/blob/master/src/java/com/twitter/common/styleguide.md'),(5,4,1,'是否過度設計','太複雜通常表示\"審查人員很難立即理解\"，這也表示\"開發人員在引用或修改此程式碼可能引入錯誤\"','https://www.w3schools.com/');
+/*!40000 ALTER TABLE `Review_Metrics` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Review_Record`
+--
+
+DROP TABLE IF EXISTS `Review_Record`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Review_Record` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `pmId` int(11) DEFAULT NULL,
+  `rsmId` int(11) DEFAULT NULL,
+  `score` int(11) DEFAULT NULL,
+  `time` datetime DEFAULT NULL,
+  `feedback` varchar(3000) COLLATE utf8_bin DEFAULT NULL,
+  `reviewOrder` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `R_R_pmId_idx` (`pmId`),
+  KEY `R_R_armId_idx` (`rsmId`),
+  CONSTRAINT `R_R_pmId` FOREIGN KEY (`pmId`) REFERENCES `Pair_Matching` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `R_R_rsmId` FOREIGN KEY (`rsmId`) REFERENCES `Review_Setting_Metrics` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Review_Record`
+--
+
+LOCK TABLES `Review_Record` WRITE;
+/*!40000 ALTER TABLE `Review_Record` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Review_Record` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Review_Setting`
+--
+
+DROP TABLE IF EXISTS `Review_Setting`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Review_Setting` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `aId` int(11) DEFAULT NULL,
+  `amount` int(11) DEFAULT NULL,
+  `releaseTime` datetime DEFAULT NULL,
+  `deadline` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `R_S_aId_idx` (`aId`),
+  CONSTRAINT `R_S_aId` FOREIGN KEY (`aId`) REFERENCES `Assignment` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Review_Setting`
+--
+
+LOCK TABLES `Review_Setting` WRITE;
+/*!40000 ALTER TABLE `Review_Setting` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Review_Setting` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Review_Setting_Metrics`
+--
+
+DROP TABLE IF EXISTS `Review_Setting_Metrics`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Review_Setting_Metrics` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `rsId` int(11) DEFAULT NULL,
+  `rmId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `A_R_M_rmId_idx` (`rmId`),
+  KEY `A_R_M_aId_idx` (`rsId`),
+  CONSTRAINT `R_S_M_rmId` FOREIGN KEY (`rmId`) REFERENCES `Review_Metrics` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `R_S_M_rsId` FOREIGN KEY (`rsId`) REFERENCES `Review_Setting` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Review_Setting_Metrics`
+--
+
+LOCK TABLES `Review_Setting_Metrics` WRITE;
+/*!40000 ALTER TABLE `Review_Setting_Metrics` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Review_Setting_Metrics` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Review_Status`
+--
+
+DROP TABLE IF EXISTS `Review_Status`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Review_Status` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `status` varchar(45) CHARACTER SET utf8 DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Review_Status`
+--
+
+LOCK TABLES `Review_Status` WRITE;
+/*!40000 ALTER TABLE `Review_Status` DISABLE KEYS */;
+INSERT INTO `Review_Status` VALUES (1,'initialization'),(2,'uncompleted'),(3,'completed');
+/*!40000 ALTER TABLE `Review_Status` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `Role`
 --
 
@@ -371,7 +571,7 @@ CREATE TABLE `Role_User` (
   KEY `R_U_rid_idx` (`rId`),
   CONSTRAINT `R_U_rid` FOREIGN KEY (`rId`) REFERENCES `Role` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `R_U_uid` FOREIGN KEY (`uId`) REFERENCES `User` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -381,6 +581,30 @@ CREATE TABLE `Role_User` (
 LOCK TABLES `Role_User` WRITE;
 /*!40000 ALTER TABLE `Role_User` DISABLE KEYS */;
 /*!40000 ALTER TABLE `Role_User` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Score_Mode`
+--
+
+DROP TABLE IF EXISTS `Score_Mode`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Score_Mode` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `mode` varchar(45) CHARACTER SET utf8 DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Score_Mode`
+--
+
+LOCK TABLES `Score_Mode` WRITE;
+/*!40000 ALTER TABLE `Score_Mode` DISABLE KEYS */;
+INSERT INTO `Score_Mode` VALUES (1,'yesNoMode'),(2,'numberScoreMode');
+/*!40000 ALTER TABLE `Score_Mode` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -397,7 +621,7 @@ CREATE TABLE `Screenshot_Record` (
   PRIMARY KEY (`id`),
   KEY `S_R_crid_idx` (`crId`),
   CONSTRAINT `S_R_crid` FOREIGN KEY (`crId`) REFERENCES `Commit_Record` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -426,7 +650,7 @@ CREATE TABLE `User` (
   `gitLabToken` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `display` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -447,4 +671,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-08-23  6:00:14
+-- Dump completed on 2020-09-14  8:16:49
