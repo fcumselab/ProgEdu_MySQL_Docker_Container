@@ -106,6 +106,35 @@ LOCK TABLES `Assignment_User` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `Assignment_Assessment`
+--
+
+DROP TABLE IF EXISTS `Assignment_Assessment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Assignment_Assessment` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `aId` INT(11) NULL DEFAULT NULL,
+  `status` INT(11) NULL DEFAULT NULL,
+  `order` INT(11) NULL DEFAULT NULL,
+  `score` INT(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `A_S_id_idx` (`status`),
+  CONSTRAINT `A_A_status` FOREIGN KEY (`status`) REFERENCES `Commit_Status` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+)ENGINE=InnoDB AUTO_INCREMENT=112 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Assignment_Assessment`
+--
+
+LOCK TABLES `Assignment_Assessment` WRITE;
+/*!40000 ALTER TABLE `Assignment_Assessment` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Assignment_Assessment` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+--
 -- Table structure for table `Commit_Record`
 --
 
