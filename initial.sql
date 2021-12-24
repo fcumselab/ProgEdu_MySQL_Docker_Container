@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.21, for Win64 (x86_64)
 --
--- Host: 140.134.25.64    Database: ProgEdu
+-- Host: localhost    Database: ProgEdu
 -- ------------------------------------------------------
 -- Server version	5.7.36
 
