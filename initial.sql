@@ -135,6 +135,32 @@ LOCK TABLES `Assignment_Assessment` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `Assignment_Score`
+--
+
+DROP TABLE IF EXISTS `Assignment_Score`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Assignment_Score` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `auId` int(11) DEFAULT NULL,
+  `score` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY ` A_U_auId_idx` (`auId`),
+  CONSTRAINT ` A_S_auId` FOREIGN KEY (`auId`) REFERENCES `Assignment_User` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Assignment_Score`
+--
+
+LOCK TABLES `Assignment_Score` WRITE;
+/*!40000 ALTER TABLE `Assignment_Score` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Assignment_Score` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `Assignment_Type`
 --
 
@@ -154,7 +180,7 @@ CREATE TABLE `Assignment_Type` (
 
 LOCK TABLES `Assignment_Type` WRITE;
 /*!40000 ALTER TABLE `Assignment_Type` DISABLE KEYS */;
-INSERT INTO `Assignment_Type` VALUES (1,'javac'),(2,'maven'),(3,'web'),(4,'android'),(5,'python');
+INSERT INTO `Assignment_Type` VALUES (1,'javac'),(2,'maven'),(3,'web'),(4,'android'),(5,'python'),(6,'exam');
 /*!40000 ALTER TABLE `Assignment_Type` ENABLE KEYS */;
 UNLOCK TABLES;
 
